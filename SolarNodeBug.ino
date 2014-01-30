@@ -100,6 +100,7 @@ void loop()
   
   delay(1000);
 
+ Serial.println("repeat");
 }
 
 void dump_packet(packet_t* packet){
@@ -142,15 +143,15 @@ void receive_package(){
 }
 
 void transmit_package(){
-  /*
+  
   //DEBUG
   Serial.print("TX packet: ");
   for(char i=0;i<sizeof(struct_packet_t);i++){
     Serial.print(packet_tx.byte_packet[i],HEX);
   }
   Serial.println("");
-   //dump_radio_status_to_serialport(radio.radioState());  // Should show Receive Mode
-  //end DEBUG */
+   dump_radio_status_to_serialport(radio.radioState());  // Should show Receive Mode
+  //end DEBUG 
   
   //Serial.print("Sending packet: ");
   //Serial.println(str_on);
@@ -162,7 +163,7 @@ void transmit_package(){
     radio.write(*ptr++);
   }
   radio.flush();  // Force transmit (don't wait for any more data)
-  //dump_radio_status_to_serialport(radio.radioState());  // Should report receive mode
+  dump_radio_status_to_serialport(radio.radioState());  // Should report receive mode
 }
 
 void form_packet(){
@@ -184,7 +185,7 @@ void measure_temeparture(){
 
 
 // DEBUGGING CODE ONLY! TO BE REMOVED IN PRODUCTION
-/*
+
 void dump_radio_status_to_serialport(uint8_t status)
 {
   Serial.print("Enrf24 radio transceiver status: ");
@@ -212,4 +213,4 @@ void dump_radio_status_to_serialport(uint8_t status)
     default:
       Serial.println("UNKNOWN STATUS CODE");
   }
-}//*/
+}
